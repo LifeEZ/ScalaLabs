@@ -179,67 +179,71 @@ object Demo {
   //      temp
   //    }
 
-//  import scala.util.control.Breaks._
-//
-//  //8th
-//  def main(args: Array[String]): Unit = {
-//    var array = ArrayBuffer[String]()
-//    var flag = false
-//    while (!flag) {
-//      println("Please enter the option:\n1.Add word.\n2.Check word.\n0.Exit")
-//      val a = scala.io.StdIn.readChar()
-//      a match {
-//        case '1' => array = addWord(array)
-//        case '2' => checkWord(array)
-//        case '0' => flag = true
-//        case _ => println("Wrong option!")
-//      }
-//    }
-//  }
-//
-//  def addWord(array: ArrayBuffer[String]): ArrayBuffer[String] = {
-//    println("Please enter the word to add.")
-//    val a = scala.io.StdIn.readLine()
-//    if(!array.contains(a)) {
-//      array += a
-//    }
-//    array
-//  }
-//
-//  def checkWord(array: ArrayBuffer[String]): Unit = {
-//    println("Please enter the word to check.")
-//    val a = scala.io.StdIn.readLine()
-//    var flag = false
-//    if (array.nonEmpty) {
-//      for (i <- array.indices) {
-//        val temp = array(i)
-//        if (temp.equals(a)) {
-//          flag = true
-//          println("Word \"" + temp + "\" has no mistakes")
-//        }
-//      }
-//      if (!flag) {
-//        println("Maybe you meant ")
-//        for (i <- array.indices) {
-//          val temp = array(i)
-//          var counter = 0
-//          breakable {
-//            for (i <- 0 until temp.length) {
-//              if (i >= temp.length || i >= a.length)
-//                break
-//              if (temp.charAt(i).equals(a.charAt(i))) {
-//                counter += 1
-//              }
-//            }
-//          }
-//          if (counter >= 2 * a.length / 3) {
-//            println(temp)
-//          }
-//        }
-//      }
-//    }
-//    else {
-//      println("Dictionary is empty.")
-//    }
-//  }
+  import scala.util.control.Breaks._
+
+  //8th
+  def main(args: Array[String]): Unit = {
+    var array = ArrayBuffer[String]()
+    var flag = false
+    while (!flag) {
+      println("Please enter the option:\n1.Add word.\n2.Check word.\n0.Exit")
+      val a = scala.io.StdIn.readChar()
+      a match {
+        case '1' => array = addWord(array)
+        case '2' => checkWord(array)
+        case '0' => flag = true
+        case _ => println("Wrong option!")
+      }
+    }
+  }
+
+  def addWord(array: ArrayBuffer[String]): ArrayBuffer[String] = {
+    println("Please enter the word to add.")
+    val a = scala.io.StdIn.readLine()
+    if (!a.isEmpty) {
+      if (!array.contains(a)) {
+        array += a
+      }
+    }
+    array
+  }
+
+  def checkWord(array: ArrayBuffer[String]): Unit = {
+    println("Please enter the word to check.")
+    val a = scala.io.StdIn.readLine()
+    var flag = false
+    if (!a.isEmpty) {
+      if (array.nonEmpty) {
+        for (i <- array.indices) {
+          val temp = array(i)
+          if (temp.equals(a)) {
+            flag = true
+            println("Word \"" + temp + "\" has no mistakes")
+          }
+        }
+        if (!flag) {
+          println("Maybe you meant ")
+          for (i <- array.indices) {
+            val temp = array(i)
+            var counter = 0
+            breakable {
+              for (i <- 0 until temp.length) {
+                if (i >= temp.length || i >= a.length)
+                  break
+                if (temp.charAt(i).equals(a.charAt(i))) {
+                  counter += 1
+                }
+              }
+            }
+            if (counter >= 2 * a.length / 3) {
+              println(temp)
+            }
+          }
+        }
+      }
+      else {
+        println("Dictionary is empty.")
+      }
+    }
+  }
 }
